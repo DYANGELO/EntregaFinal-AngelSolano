@@ -1,4 +1,4 @@
-
+import { Link, Outlet} from "react-router-dom"
 import CartWidget from "../CartWidget/CartWidget"
 import logo from "../../src/assets/Logo.png"
 import './Navbar.css'
@@ -8,13 +8,19 @@ function Navbar() {
 
         <nav className="navbar">
             <div>
-                <img className="logo" src={logo} alt="Logo de la pagina"/>
+            <Link to={"/"}><img className="logo" src={logo} alt="Logo de la pagina"/></Link>
+                
             </div>
 
             <ul className="menu-links">
-                <li className="menu-item"><a href="#">Inicio</a></li>
-                <li className="menu-item"><a href="#">Acerca de</a></li>
-                <li className="menu-item"><a href="#">Contacto</a></li>
+                <li className="menu-item">
+                    <Link to={"/"}>Home</Link>
+                </li>
+                
+                <li className="menu-item">
+                    <Link to={"/category/:idCategory"}>Productos</Link>
+                </li>
+
             </ul>
             <CartWidget />
         </nav>
