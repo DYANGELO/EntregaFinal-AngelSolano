@@ -20,9 +20,9 @@ function Navbar() {
                 <li className="menu-item">
                     <Link to={"/category/:idCategory"}>Productos</Link>
                 </li>
-
             </ul>
-            <CartWidget />
+
+            <Link to={'/cart'}><CartWidget /></Link>
         </nav>
     )
 }

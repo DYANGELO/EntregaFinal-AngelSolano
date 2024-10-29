@@ -1,27 +1,39 @@
-import ItemDetail from "./itemDetail"
-import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
-import getProducts from "../../data/productos"
-
+import ItemDetail from "./itemDetail";
+import { useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import ItemsContext from '../../context/ItemsContext';
 
 const ItemDetailContainer = () => {
-    const [product, setProduct] = useState({})
-    const { id } = useParams()
+    const { productos, loading, agregarAlCarrito } = useContext(ItemsContext);
+    const { id } = useParams();
+    const [product, setProduct] = useState(null);
 
     useEffect(() => {
-        getProducts
-            .then((answer) => {
-                const product = answer.find(prod => prod.id === parseInt(id))
-                setProduct(product)
-            })
-            .catch(error => console.log(error))
-    }, [id])
+        if (productos.length > 0) {
+            const product = productos.find(prod => prod.id === id);
+            setProduct(product);
+        }
+    }, [productos, id]);
+
+    const handleAddToCart = () => {
+        if (product) {
+            agregarAlCarrito(product);
+        }
+    };
+
+    if (loading) {
+        return <p>Cargando producto...</p>;
+    }
 
     return (
-
-        <ItemDetail product={product} />
-
-    )
+        product ? (
+            <>
+                <ItemDetail product={product} />
+                <button onClick={handleAddToCart}>Añadir al carrito</button>
+            </>
+        ) : <p>Producto no encontrado.</p>
+    );
 }
 
-export default ItemDetailContainer 
+export default ItemDetailContainer;
+

@@ -24,6 +24,9 @@
     margin: 0 10px;
 }
 
+.menu-cart {
+    margin-left: 60%;
+}
 .navbar a:hover {
     color: white;
 }
